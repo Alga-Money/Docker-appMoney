@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  server-app:
+    build: ../Nodejs/appmoney-server/
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+      - 9229:9229
+    restart: always
+    command:
+      - npm
+      - "start"
