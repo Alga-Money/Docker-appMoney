@@ -1,6 +1,25 @@
 version: '3'
 
 services:
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - 'API_PORT=6378'
+      - 'NODE_ENV=production'
+  
+  reverseproxy: # Name of the Service
+    build: nginx-reverseproxy 
+    ports: 
+      - "80:80"
+      - "443:443"
+    container_name: reverseproxy
+    restart: unless-stopped
+
+
   server-app:
     build: ../Nodejs/appmoney-server/
     volumes:
