@@ -11,19 +11,17 @@ EXPOSE 443
 #COPY nginx/snippets /etc/nginx/snippets
 COPY *.conf /etc/nginx/sites-available/
 
-RUN ln -s /etc/nginx/sites-available/ww2.admin.edujob.com.br.conf /etc/nginx/sites-enabled/
-RUN ln -s /etc/nginx/sites-available/ww2.api-basic.edujob.com.br.conf /etc/nginx/sites-enabled/
-RUN ln -s /etc/nginx/sites-available/ww2.api.edujob.com.br.conf /etc/nginx/sites-enabled/
-RUN ln -s /etc/nginx/sites-available/ww2.candidato.edujob.com.br.conf /etc/nginx/sites-enabled/
+RUN ln -s /etc/nginx/sites-available/api.appmoneygestor.com.br.conf /etc/nginx/sites-enabled/
+RUN ln -s /etc/nginx/sites-available/appmoneygestor.com.br.conf /etc/nginx/sites-enabled/
 
 
 COPY otherconf/supervisord.conf /etc/supervisor/supervisord.conf
 
-RUN mkdir -p /etc/letsencrypt/live/ww2.admin.edujob.com.br/
-COPY ssl/ww2.admin.edujob.com.br/*.pem /etc/letsencrypt/live/ww2.admin.edujob.com.br/
+RUN mkdir -p /etc/letsencrypt/live/api.appmoneygestor.com.br/
+COPY ssl/api.appmoneygestor.com.br/*.pem /etc/letsencrypt/live/api.appmoneygestor.com.br/
 
-RUN mkdir -p /etc/letsencrypt/live/ww2.candidato.edujob.com.br/
-COPY ssl/ww2.candidato.edujob.com.br/*.pem /etc/letsencrypt/live/ww2.candidato.edujob.com.br/
+RUN mkdir -p /etc/letsencrypt/live/appmoneygestor.com.br/
+COPY ssl/appmoneygestor.com.br/*.pem /etc/letsencrypt/live/appmoneygestor.com.br/
 
 #ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
 COPY start.sh /start.sh

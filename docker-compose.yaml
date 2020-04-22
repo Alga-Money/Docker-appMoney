@@ -21,7 +21,10 @@ services:
 
 
   server-app:
-    build: ../Nodejs/appmoney-server/
+    depends_on:
+      - reverseproxy
+    container_name: server
+    build: ../appmoney-server/
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -32,3 +35,14 @@ services:
     command:
       - npm
       - "start"
+
+  portal-app:
+    depends_on:
+      - reverseproxy
+    build: ../appmoney-portal  
+    container_name: portal
+    restart: unless-stopped
+    volumes:
+      - ../appmoney-portal/node_modules:/usr/app/node_modules
+  
+    
